@@ -1,0 +1,268 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Yet Another Node.js Blogg Application API",
+      "description": "Yet Another Node.js Blogg Application API",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:3000",
+    "basePath": "/api/v1",
+    "tags": [
+      {
+        "name": "Users",
+        "description": "API for users in the system"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+   
+    "paths": {
+      "/users/register": {
+        "post": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Create a new user",
+          "description": "Create new user in system",
+          "parameters": [
+            {
+              "name": "user",
+              "in": "body",
+
+              "description": "User that we want to create",
+              "schema": {
+                "$ref": "#/definitions/Register"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "New user is created",
+              "schema": {
+                "$ref": "#/definitions/Register"
+              }
+            }
+          }
+        }
+    },
+      "/users/login": {
+        "post": {
+          "tags": [
+            "Users"
+          ],         
+           "summary": "Get users using credentials",
+          "description": "Get Users",
+          "parameters": [
+            {
+              "name": "user",
+              "in": "body",
+              "description": "To get user using",
+              "schema": {
+                "$ref": "#/definitions/Login"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Successfully Loged In",
+              "schema": {
+                "$ref": "#/definitions/Login"
+              }
+            }
+          }
+        }
+      },
+   
+      "/users/{username}": {
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "description": "Username of user that we want to find",
+            "type": "string"
+          }
+        ],
+        "get": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Get user with given username",
+          "responses": {
+            "200": {
+              "description": "User is found",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete user with given ID",
+          "tags": [
+            "Users"
+          ],
+          "responses": {
+            "200": {
+              "description": "User is deleted",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update user with give ID",
+          "tags": [
+            "Users"
+          ],
+          "parameters": [
+            {
+              "name": "user",
+              "in": "body",
+              "description": "User with new values of properties",
+              "schema": {
+                "$ref": "#/definitions/Update"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User is updated",
+              "schema": {
+                "$ref": "#/definitions/Update"
+              }
+            }
+          }
+        }
+      }
+   
+   
+    },
+ 
+    "definitions": {
+      "Register": {
+        "required": [
+          "email",
+          "username",
+          "password"
+        ],
+        "properties": {
+         
+          "email": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "username": {
+            "type": "string",
+            "uniqueItems": true
+
+          },
+          "password" :{
+            "type" : "string"
+          }
+        }
+      },
+      "Login": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+         
+          "email": {
+            "type": "string",
+            "uniqueItems": true
+          },
+        "password" :{
+            "type" : "string"
+          }
+        }
+      },
+      "User": {
+        "required": [
+          "email",
+          "username"
+          
+        ],
+        "properties": {
+          "_id":{
+            "type": "string",
+            "uniqueItems": true
+          },
+         
+          "email": {
+            "type": "string",
+            "uniqueItems": true
+          },
+        "username" :{
+            "type" : "string",
+            "uniqueItems": true
+          },
+          "bio":{
+            "type" : "string"
+
+          },
+          "createdtime":{
+            "type" : "string"
+
+          },
+          "image":{
+            "type" : "string"
+
+          }
+        }
+      },
+
+      "Update": {
+        "required": [
+          "username",
+          "email",
+          "password"
+          
+        ],
+        "properties": {
+          
+         
+          "email": {
+            "type": "string",
+            "uniqueItems": true
+          },
+        "username" :{
+            "type" : "string",
+            "uniqueItems": true
+          },
+          "password":{
+            "type":"string"
+          },
+          "bio":{
+            "type" : "string"
+
+          },
+         
+          "image":{
+            "type" : "string"
+
+          }
+        }
+      }
+      
+    }
+  }
